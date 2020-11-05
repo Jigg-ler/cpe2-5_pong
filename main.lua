@@ -11,6 +11,8 @@ push = require 'push'
 --other languages
 Class = require 'class'
 
+require 'Paddle'
+
 --the actual size of the window/program
 WINDOW_WIDTH = 1080
 WINDOW_HEIGHT = 600
@@ -29,6 +31,10 @@ function love.load()
     --stores the font settings to the object font32
     font32 = love.graphics.newFont('font.ttf', 32)
     love.graphics.setFont(font32)
+
+    --initializes the two paddles and their properties (x, y, width, height)
+    player1 = Paddle(10, VIRTUAL_HEIGHT / 2, 5, 30)
+    player2 = Paddle(VIRTUAL_WIDTH - 10, VIRTUAL_HEIGHT / 2, 5, 30)
     
     -- initialize our virtual resolution, which will be rendered within our
     -- actual window no matter its dimensions
@@ -46,13 +52,13 @@ function love.update(dt)
     
 end
 
+--checks per frame if a key is certain key is pressed
 function love.keypressed(key)
     -- keys can be accessed by string name
     if key == 'escape' then
         love.event.quit()
     end
     -- TO IMPLEMENT -key for enter to start the game 
-    -- controls for the paddles (player1.down() inside if statement)
 
 end
 
@@ -64,12 +70,16 @@ function love.draw()
     -- begin rendering at virtual resolution
     push:apply('start')
 
+    --sets the color of the background
+    love.graphics.clear(40/255, 45/255, 52/255, 255/255)
+
     -- condensed onto one line from last example
     -- note we are now using virtual width and height now for text placement
     love.graphics.printf('Hello Pong!', 0, VIRTUAL_HEIGHT / 6 - 16, VIRTUAL_WIDTH, 'center')
 
-    --(drawmode, x, y, width, height)
-    love.graphics.rectangle('fill', 10, VIRTUAL_HEIGHT / 2, 5, 30)
+    --renders the paddles virtually
+    player1:render()
+    player2:render()
 
     -- end rendering at virtual resolution
     push:apply('end')
