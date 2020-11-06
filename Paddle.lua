@@ -13,7 +13,11 @@ end
 
 --checks per frame (dt); placed under love.update(dt)
 function Paddle:update(dt)
-    
+    if self.y <= 0 then
+        self. y = math.max(0, self.y + self.dy * dt)
+    else
+        self.y = math.min(VIRTUAL_HEIGHT - self.height, self.y + self.dy * dt)
+    end
 end
 
 --renders the paddle into the game; should be placed under love.draw()
