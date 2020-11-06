@@ -36,6 +36,6 @@ function Ball:collides(paddle)
         return false
     end
 
-    --if the above arent true, they're overlapping
+    --if the above aren't true, they're overlapping
     return true
 end

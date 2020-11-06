@@ -35,14 +35,15 @@ local background = love.graphics.newImage('assets/background.png')
 function love.load()
     --reduces blur from the edges of the font due to the virtual retro-ing
     love.graphics.setDefaultFilter("nearest", "nearest")
-    love.window.setTitle('CpE 2-5 Pong')
+
+    love.window.setTitle('BSCpE 2-5 Pong')
 
     -- "seed" the RNG so that calls to random are always random
     -- use the current time, since that will vary on startup every time
     math.randomseed(os.time())
     
     --stores the font settings to the object font32
-    font32 = love.graphics.newFont('font.ttf', 32)
+    font32 = love.graphics.newFont('font.ttf', 8)
     love.graphics.setFont(font32)
 
     --initializes score variables
@@ -164,18 +165,19 @@ function love.keypressed(key)
 end
 
 --[[
-    Called after update by LÖVE2D, used to draw anything to the screen, 
+    Called after update by LÖVE2D, used to draw anything to the screen,
     updated or otherwise.
 ]]
 function love.draw()
     -- begin rendering at virtual resolution
     push:apply('start')
 
-    --sets the color of the background
+    -- loads background asset
     love.graphics.draw(background, 0, 0)
+
     -- condensed onto one line from last example
     -- note we are now using virtual width and height now for text placement
-    love.graphics.printf('Hello Pong!', 0, VIRTUAL_HEIGHT / 6 - 30, VIRTUAL_WIDTH, 'center')
+    love.graphics.printf('HELLO PONG!', 0, VIRTUAL_HEIGHT / 6 - 28, VIRTUAL_WIDTH, 'center')
 
     --renders the paddles virtually
     player1:render()
