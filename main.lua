@@ -11,6 +11,8 @@ push = require 'push'
 --other languages
 Class = require 'class'
 
+require 'Ball'
+
 require 'Paddle'
 
 --the actual size of the window/program
@@ -56,15 +58,9 @@ function love.load()
     })
 
     --velocity and position variables for our ball when play starts
-    ballX = VIRTUAL_WIDTH / 2 - 2
-    ballY = VIRTUAL_HEIGHT / 2 -2
-
-    --math.random returns a random value between the left and right number
-    ballDX = math.random(2) == 1 and 100 or -100
-    ballDY = math.random(-50, 50)
-
+    ball = Ball(VIRTUAL_WIDTH / 2 -2, VIRTUAL_HEIGHT / 2 - 2 , 4, 4)
+    
     gameState = 'start'
-
 end
 
 --function that updates every frame, so place within this function stuff that is
@@ -89,14 +85,14 @@ function love.update(dt)
     else
         player2.dy = 0
     end
+    
+    if gameState == 'play' then
+        ball:update(dt)
+    end
 
     player1:update(dt)
     player2:update(dt)
 
-    if gameState == 'play' then
-        ballX = ballX + ballDX * dt
-        ballY = ballY + ballDY * dt
-    end
 end
 
 --checks per frame if a key is certain key is pressed
@@ -113,14 +109,8 @@ function love.keypressed(key)
         else
             gameState = 'start'
 
-            --start ball's position in the middle of the screen
-            ballX = VIRTUAL_WIDTH / 2 - 2
-            ballY = VIRTUAL_HEIGHT / 2 - 2
-
-            ballDX = math.random(2) == 1 and 100 or -100
-            ballDY = math.random(-50, 50) * 1.5
+            ball:reset()
         end
-
     end
     -- TO IMPLEMENT -key for enter to start the game 
 
@@ -144,8 +134,8 @@ function love.draw()
     player1:render()
     player2:render()
 
-    -- render ball (center)
-    love.graphics.rectangle('fill', ballX, ballY, 4, 4)
+    --render ball (center)
+    ball:render()
 
     -- end rendering at virtual resolution
     push:apply('end')
