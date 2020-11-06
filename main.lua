@@ -51,8 +51,8 @@ function love.load()
     player2Score = 0
 
     --initializes the two paddles and their properties (x, y, width, height)
-    player1 = Paddle(10, VIRTUAL_HEIGHT / 2, 5, 30)
-    player2 = Paddle(VIRTUAL_WIDTH - 10, VIRTUAL_HEIGHT / 2, 5, 30)
+    player1 = Paddle(10, VIRTUAL_HEIGHT / 2 - 15, 5, 30)
+    player2 = Paddle(VIRTUAL_WIDTH - 15, VIRTUAL_HEIGHT / 2 - 15, 5, 30)
     
     -- initialize our virtual resolution, which will be rendered within our
     -- actual window no matter its dimensions
