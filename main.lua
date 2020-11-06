@@ -45,6 +45,10 @@ function love.load()
     font32 = love.graphics.newFont('font.ttf', 32)
     love.graphics.setFont(font32)
 
+    --initializes score variables
+    player1Score = 0
+    player2Score = 0
+
     --initializes the two paddles and their properties (x, y, width, height)
     player1 = Paddle(10, VIRTUAL_HEIGHT / 2, 5, 30)
     player2 = Paddle(VIRTUAL_WIDTH - 10, VIRTUAL_HEIGHT / 2, 5, 30)
@@ -67,26 +71,25 @@ end
 --essential to the gameplay that it requires to be updated every frame.
 --e.g. player movement
 function love.update(dt)
-
-    --player1
-    if love.keyboard.isDown('w') then
-        player1.dy = -PADDLE_SPEED
-    elseif love.keyboard.isDown('s') then
-        player1.dy = PADDLE_SPEED
-    else
-        player1.dy = 0
-    end
-
-    --player2
-    if love.keyboard.isDown('up') then
-        player2.dy = -PADDLE_SPEED
-    elseif love.keyboard.isDown('down') then
-        player2.dy = PADDLE_SPEED
-    else
-        player2.dy = 0
-    end
-    
     if gameState == 'play' then
+        --player1
+        if love.keyboard.isDown('w') then
+            player1.dy = -PADDLE_SPEED
+        elseif love.keyboard.isDown('s') then
+            player1.dy = PADDLE_SPEED
+        else
+            player1.dy = 0
+        end
+
+        --player2
+        if love.keyboard.isDown('up') then
+            player2.dy = -PADDLE_SPEED
+        elseif love.keyboard.isDown('down') then
+            player2.dy = PADDLE_SPEED
+        else
+            player2.dy = 0
+        end
+    
         ball:update(dt)       
         if ball:collides(player1) then
             ball.dx = -ball.dx * 1.03
@@ -119,10 +122,23 @@ function love.update(dt)
             ball.y = VIRTUAL_HEIGHT - 4
             ball.dy = -ball.dy
         end
-    end
 
-    player1:update(dt)
-    player2:update(dt)
+        if ball.x < 0 then
+            servingPlayer = 1
+            player2Score = player2Score + 1
+            ball:reset()
+            gameState = 'serve'
+        end
+
+        if ball.x > VIRTUAL_WIDTH then
+            servingPlayer = 2
+            player1Score = player1Score + 1
+            ball:reset()
+            gameState = 'serve'
+        end
+        player1:update(dt)
+        player2:update(dt)
+    end
 
 end
 
