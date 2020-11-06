@@ -24,13 +24,17 @@ VIRTUAL_HEIGHT = 243
 --speed of the movement of the paddles
 PADDLE_SPEED = 200
 
+--set background asset
+local background = love.graphics.newImage('assets/background.png')
+
 --[[
     Runs when the game first starts up, only once; used to initialize the game.
 ]]
 function love.load()
     --reduces blur from the edges of the font due to the virtual retro-ing
     love.graphics.setDefaultFilter("nearest", "nearest")
-
+    love.window.setTitle('CpE 2-5 Pong')
+    
     --stores the font settings to the object font32
     font32 = love.graphics.newFont('font.ttf', 32)
     love.graphics.setFont(font32)
@@ -95,11 +99,10 @@ function love.draw()
     push:apply('start')
 
     --sets the color of the background
-    love.graphics.clear(40/255, 45/255, 52/255, 255/255)
-
+    love.graphics.draw(background, 0, 0)
     -- condensed onto one line from last example
     -- note we are now using virtual width and height now for text placement
-    love.graphics.printf('Hello Pong!', 0, VIRTUAL_HEIGHT / 6 - 16, VIRTUAL_WIDTH, 'center')
+    love.graphics.printf('Hello Pong!', 0, VIRTUAL_HEIGHT / 6 - 30, VIRTUAL_WIDTH, 'center')
 
     --renders the paddles virtually
     player1:render()
