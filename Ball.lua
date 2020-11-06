@@ -26,3 +26,16 @@ end
 function Ball:render()
     love.graphics.rectangle('fill', self.x, self.y, self.width, self.height)
 end
+
+function Ball:collides(paddle)
+    if self.x > paddle.x + paddle.width or paddle.x > self.x + self.width then
+        return false
+    end
+
+    if self.y > paddle.y + paddle.height or paddle.y > self.y + self.height then
+        return false
+    end
+
+    --if the above arent true, they're overlapping
+    return true
+end
