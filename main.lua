@@ -42,7 +42,7 @@ function love.load()
     -- initialize our virtual resolution, which will be rendered within our
     -- actual window no matter its dimensions
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
-        fullscreen = true,
+        fullscreen = false,
         resizable = false,
         vsync = true
     })
