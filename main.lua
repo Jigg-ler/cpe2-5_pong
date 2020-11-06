@@ -34,6 +34,10 @@ function love.load()
     --reduces blur from the edges of the font due to the virtual retro-ing
     love.graphics.setDefaultFilter("nearest", "nearest")
     love.window.setTitle('CpE 2-5 Pong')
+
+    -- "seed" the RNG so that calls to random are always random
+    -- use the current time, since that will vary on startup every time
+    math.randomseed(os.time())
     
     --stores the font settings to the object font32
     font32 = love.graphics.newFont('font.ttf', 32)
@@ -50,6 +54,17 @@ function love.load()
         resizable = false,
         vsync = true
     })
+
+    --velocity and position variables for our ball when play starts
+    ballX = VIRTUAL_WIDTH / 2 - 2
+    ballY = VIRTUAL_HEIGHT / 2 -2
+
+    --math.random returns a random value between the left and right number
+    ballDX = math.random(2) == 1 and 100 or -100
+    ballDY = math.random(-50, 50)
+
+    gameState = 'start'
+
 end
 
 --function that updates every frame, so place within this function stuff that is
@@ -77,7 +92,11 @@ function love.update(dt)
 
     player1:update(dt)
     player2:update(dt)
-    
+
+    if gameState == 'play' then
+        ballX = ballX + ballDX * dt
+        ballY = ballY + ballDY * dt
+    end
 end
 
 --checks per frame if a key is certain key is pressed
@@ -85,6 +104,23 @@ function love.keypressed(key)
     -- keys can be accessed by string name
     if key == 'escape' then
         love.event.quit()
+    
+    --if enter key is pressed during the start state of the game, it will go into play state
+    --during play mode, the ball will move in a random direction
+    elseif key == 'enter' or key == 'return' then
+        if gameState == 'start' then
+            gameState = 'play'
+        else
+            gameState = 'start'
+
+            --start ball's position in the middle of the screen
+            ballX = VIRTUAL_WIDTH / 2 - 2
+            ballY = VIRTUAL_HEIGHT / 2 - 2
+
+            ballDX = math.random(2) == 1 and 100 or -100
+            ballDY = math.random(-50, 50) * 1.5
+        end
+
     end
     -- TO IMPLEMENT -key for enter to start the game 
 
@@ -109,7 +145,7 @@ function love.draw()
     player2:render()
 
     -- render ball (center)
-    love.graphics.rectangle('fill', VIRTUAL_WIDTH / 2 - 2, VIRTUAL_HEIGHT / 2 - 2, 4, 4)
+    love.graphics.rectangle('fill', ballX, ballY, 4, 4)
 
     -- end rendering at virtual resolution
     push:apply('end')
