@@ -14,12 +14,15 @@ Class = require 'class'
 require 'Paddle'
 
 --the actual size of the window/program
-WINDOW_WIDTH = 1080
-WINDOW_HEIGHT = 600
+WINDOW_WIDTH = 1280
+WINDOW_HEIGHT = 720
 
 --can be adjusted for the amount of pixels shown virtually
 VIRTUAL_WIDTH = 432
 VIRTUAL_HEIGHT = 243
+
+--speed of the movement of the paddles
+PADDLE_SPEED = 200
 
 --[[
     Runs when the game first starts up, only once; used to initialize the game.
@@ -39,7 +42,7 @@ function love.load()
     -- initialize our virtual resolution, which will be rendered within our
     -- actual window no matter its dimensions
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
-        fullscreen = false,
+        fullscreen = true,
         resizable = false,
         vsync = true
     })
@@ -49,6 +52,27 @@ end
 --essential to the gameplay that it requires to be updated every frame.
 --e.g. player movement
 function love.update(dt)
+
+    --player1
+    if love.keyboard.isDown('w') then
+        player1.dy = -PADDLE_SPEED
+    elseif love.keyboard.isDown('s') then
+        player1.dy = PADDLE_SPEED
+    else
+        player1.dy = 0
+    end
+
+    --player2
+    if love.keyboard.isDown('up') then
+        player2.dy = -PADDLE_SPEED
+    elseif love.keyboard.isDown('down') then
+        player2.dy = PADDLE_SPEED
+    else
+        player2.dy = 0
+    end
+
+    player1:update(dt)
+    player2:update(dt)
     
 end
 
