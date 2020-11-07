@@ -29,7 +29,7 @@ VIRTUAL_HEIGHT = 243
 PADDLE_SPEED = 200
 
 --set background asset
-local background = love.graphics.newImage('assets/background.png')
+local background = love.graphics.newImage('assets/background2.png')
 
 --set sfx
 local snd1 = love.audio.newSource("assets/sfx/exceeds.wav", "static")
@@ -265,9 +265,9 @@ function love.draw()
     end
 
     --player1 score
-    love.graphics.printf(tostring(player1Score), 0, VIRTUAL_HEIGHT / 6 - 28, VIRTUAL_WIDTH - 150, 'center')
+    love.graphics.printf(tostring(player1Score), 0, VIRTUAL_HEIGHT / 6 - 28, VIRTUAL_WIDTH - 165, 'center')
     --player2 score
-    love.graphics.printf(tostring(player2Score), 0, VIRTUAL_HEIGHT / 6 - 28, VIRTUAL_WIDTH + 150, 'center')
+    love.graphics.printf(tostring(player2Score), 0, VIRTUAL_HEIGHT / 6 - 28, VIRTUAL_WIDTH + 165, 'center')
     
     --renders the paddles virtually
     player1:render()
