@@ -29,6 +29,12 @@ PADDLE_SPEED = 200
 --set background asset
 local background = love.graphics.newImage('assets/background.png')
 
+--set sfx
+local snd1 = love.audio.newSource("assets/sfx/exceeds.wav", "static")
+local snd2 = love.audio.newSource("assets/sfx/hit.wav", "static")
+local snd3 = love.audio.newSource("assets/sfx/hit1.wav", "static")
+local snd4 = love.audio.newSource("assets/sfx/start.wav", "static")
+
 --[[
     Runs when the game first starts up, only once; used to initialize the game.
 ]]
@@ -54,6 +60,9 @@ function love.load()
     player1 = Paddle(10, VIRTUAL_HEIGHT / 2 - 15, 5, 30)
     player2 = Paddle(VIRTUAL_WIDTH - 15, VIRTUAL_HEIGHT / 2 - 15, 5, 30)
     
+    -- plays the start sfx
+    love.audio.play(snd4)
+
     -- initialize our virtual resolution, which will be rendered within our
     -- actual window no matter its dimensions
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
@@ -95,6 +104,7 @@ function love.update(dt)
         if ball:collides(player1) then
             ball.dx = -ball.dx * 1.03
             ball.x = player1.x + 5
+            love.audio.play(snd2)
 
             if ball.dy < 0 then
                 ball.dy = -math.random(10, 150)
@@ -105,6 +115,7 @@ function love.update(dt)
         if ball:collides(player2) then
             ball.dx = -ball.dx * 1.03
             ball.x = player2.x - 4
+            love.audio.play(snd2)
 
             if ball.dy < 0 then
                 ball.dy = -math.random(10, 150)
@@ -117,14 +128,17 @@ function love.update(dt)
         if ball.y <= 0 then
             ball.y = 0
             ball.dy = -ball.dy
+            love.audio.play(snd3)
         end
 
         if ball.y >= VIRTUAL_HEIGHT then
             ball.y = VIRTUAL_HEIGHT - 4
             ball.dy = -ball.dy
+            love.audio.play(snd3)
         end
 
         if ball.x < 0 then
+            love.audio.play(snd1)
             servingPlayer = 1
             player2Score = player2Score + 1
             ball:reset()
@@ -132,6 +146,7 @@ function love.update(dt)
         end
 
         if ball.x > VIRTUAL_WIDTH then
+            love.audio.play(snd1)
             servingPlayer = 2
             player1Score = player1Score + 1
             ball:reset()
@@ -152,6 +167,7 @@ function love.keypressed(key)
     --if enter key is pressed during the start state of the game, it will go into play state
     --during play mode, the ball will move in a random direction
     elseif key == 'enter' or key == 'return' then
+        love.audio.play(snd3)
         if gameState == 'start' then
             gameState = 'play'
         else
