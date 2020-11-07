@@ -3,10 +3,11 @@ Paddle = Class{}
 
 --initializing
 function Paddle:init(x, y, width, height)
+    self.image = love.graphics.newImage('assets/paddle.png')
     self.x = x
     self.y = y
-    self.width = width
-    self.height = height
+    self.width = self.image:getWidth()
+    self.height = self.image:getHeight()
     --the change in y of the paddle with respect to the number of frames per second , d
     self.dy = dy
 end
@@ -22,5 +23,5 @@ end
 
 --renders the paddle into the game; should be placed under love.draw()
 function Paddle:render()
-    love.graphics.rectangle('fill', self.x, self.y, self.width, self.height)
+    love.graphics.draw(self.image, self.x, self.y)
 end

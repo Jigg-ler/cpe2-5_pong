@@ -2,10 +2,11 @@
 Ball = Class{}
 
 function Ball:init(x, y, width, height)
-    self.x = x 
-    self.y = y 
-    self.width = width
-    self.height = height
+    self.image = love.graphics.newImage('assets/ball.png')
+    self.x = x
+    self.y = y
+    self.width = self.image:getWidth()
+    self.height = self.image:getHeight()
 
     self.dx = math.random(2) == 1 and -100 or 100
     self.dy = math.random(-50, 50)
@@ -24,7 +25,7 @@ function Ball:update(dt)
 end
 
 function Ball:render()
-    love.graphics.rectangle('fill', self.x, self.y, self.width, self.height)
+    love.graphics.draw(self.image, self.x, self.y)
 end
 
 function Ball:collides(paddle)
