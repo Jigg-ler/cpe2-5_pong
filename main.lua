@@ -57,8 +57,8 @@ function love.load()
     player2Score = 0
 
     --initializes the two paddles and their properties (x, y, width, height)
-    player1 = Paddle(7, VIRTUAL_HEIGHT / 2 - 15, 5, 35)
-    player2 = Paddle(VIRTUAL_WIDTH - 14, VIRTUAL_HEIGHT / 2 - 15, 5, 35)
+    player1 = Paddle(7, VIRTUAL_HEIGHT / 2 - 15, 7, 31)
+    player2 = Paddle(VIRTUAL_WIDTH - 14, VIRTUAL_HEIGHT / 2 - 15, 7, 31)
     
     -- plays the start sfx
     love.audio.play(snd4)
@@ -72,7 +72,7 @@ function love.load()
     })
 
     --velocity and position variables for our ball when play starts
-    ball = Ball(VIRTUAL_WIDTH / 2 -2, VIRTUAL_HEIGHT / 2 - 2 , 4, 4)
+    ball = Ball(VIRTUAL_WIDTH / 2 -2, VIRTUAL_HEIGHT / 2 - 2 , 6, 6)
     
     gameState = 'start'
 end
