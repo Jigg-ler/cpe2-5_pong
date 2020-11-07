@@ -34,6 +34,7 @@ local snd1 = love.audio.newSource("assets/sfx/exceeds.wav", "static")
 local snd2 = love.audio.newSource("assets/sfx/hit.wav", "static")
 local snd3 = love.audio.newSource("assets/sfx/hit1.wav", "static")
 local snd4 = love.audio.newSource("assets/sfx/start.wav", "static")
+local snd5 = love.audio.newSource("assets/sfx/menu.wav", "stream")
 
 --[[
     Runs when the game first starts up, only once; used to initialize the game.
@@ -168,8 +169,11 @@ function love.keypressed(key)
     --during play mode, the ball will move in a random direction
     elseif key == 'enter' or key == 'return' then
         love.audio.play(snd3)
+        snd5:setLooping(true)
+        snd5:play()
         if gameState == 'start' then
             gameState = 'play'
+
         else
             gameState = 'start'
 
