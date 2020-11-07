@@ -170,6 +170,7 @@ function love.keypressed(key)
     elseif key == 'enter' or key == 'return' then
         love.audio.play(snd3)
         snd5:setLooping(true)
+        snd5:stop()
         snd5:play()
         if gameState == 'start' then
             gameState = 'play'
