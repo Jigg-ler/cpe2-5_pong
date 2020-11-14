@@ -1,9 +1,9 @@
 # cpe2-5_pong README file
 
--cleanup code to make it more original and start from there
--implement classes and the required classes (ball)
--movement for the players and the ball
--collision
--bounds
--game states (start and serving)
--score
+-last commit: added paddle:reset() function which resets the positions of the paddles to the center of the screen; returned the score to 10 for declaring the winner
+
+-done(?)
+
+-cannot find any game-impeding issues so far...
+
+
