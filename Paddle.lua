@@ -21,6 +21,10 @@ function Paddle:update(dt)
     end
 end
 
+function Paddle:reset()
+    self.y = VIRTUAL_HEIGHT / 2 - 15
+end
+
 --renders the paddle into the game; should be placed under love.draw()
 function Paddle:render()
     love.graphics.draw(self.image, self.x, self.y)
