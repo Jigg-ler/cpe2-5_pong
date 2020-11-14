@@ -140,14 +140,18 @@ function love.update(dt)
             love.audio.play(snd3)
         end
 
+        --detect left and right screen boundary collision
         if ball.x < 0 then
             love.audio.play(snd1)
             servingPlayer = 1
             player2Score = player2Score + 1
+            --resets the positions of the ball and paddles
             ball:reset()
+            player1:reset()
+            player2:reset()
             gameState = 'service'
 
-            if player2Score == 2 then
+            if player2Score == 10 then
                 --stops bg music
                 snd5:stop()
                 
@@ -163,10 +167,13 @@ function love.update(dt)
             love.audio.play(snd1)
             servingPlayer = 2
             player1Score = player1Score + 1
+            --resets the positions of the ball and paddles
             ball:reset()
+            player1:reset()
+            player2:reset()
             gameState = 'service'
             
-            if player1Score == 2 then
+            if player1Score == 10 then
                 --stops bg music
                 snd5:stop()
 
