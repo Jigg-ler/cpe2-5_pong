@@ -291,6 +291,6 @@ end
 
 function displayFPS()
     love.graphics.setFont(mainFont)
-    love.graphics.setColor(25, 240, 120, 1)
-    love.graphics.print('FPS: ' .. tostring(love.timer.getFPS()), 10, 10 )
+    love.graphics.setColor(255, 159, 0, 1)
+    love.graphics.print('FPS: ' .. tostring(love.timer.getFPS()), 188, 223)
 end
