@@ -100,9 +100,9 @@ function love.update(dt)
         elseif love.keyboard.isDown('down') then
             player2.dy = PADDLE_SPEED
         else
-            player2.dy = 0
+            player2.dy = ball.dy
         end
-    
+       
         ball:update(dt)       
         if ball:collides(player1) then
             ball.dx = -ball.dx * 1.03
